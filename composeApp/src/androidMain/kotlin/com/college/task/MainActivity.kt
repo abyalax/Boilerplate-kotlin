@@ -1,4 +1,4 @@
-package com.example.boilerplate_kotlin
+package com.college.task
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,9 +12,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        setContent {
-            App()
-        }
+        setContent { App() }
     }
 }
 

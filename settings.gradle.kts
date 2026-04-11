@@ -1,4 +1,4 @@
-rootProject.name = "Boilerplatekotlin"
+rootProject.name = "task"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

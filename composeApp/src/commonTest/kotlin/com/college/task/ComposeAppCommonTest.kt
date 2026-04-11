@@ -1,4 +1,4 @@
-package com.example.boilerplate_kotlin
+package com.college.task
 
 import kotlin.test.Test
 import kotlin.test.assertEquals

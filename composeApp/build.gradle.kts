@@ -47,11 +47,11 @@ kotlin {
 }
 
 android {
-    namespace = "com.example.boilerplate_kotlin"
+    namespace = "com.college.task"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.example.boilerplate_kotlin"
+        applicationId = "com.college.task"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
