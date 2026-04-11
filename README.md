@@ -10,6 +10,49 @@ This is a Kotlin Multiplatform (KMP) project targeting **Android** and **iOS** u
     *   `iosMain`: iOS-specific implementations.
 *   **`iosApp`**: A standard Xcode project that serves as the entry point for the iOS application.
 
+```
+└── 📁composeApp
+    └── 📁build
+        └── 📁generated
+    └── 📁src
+        └── 📁androidMain
+            └── 📁kotlin
+                └── 📁com
+                    └── 📁example
+                        └── 📁boilerplate_kotlin
+                            ├── MainActivity.kt
+                            ├── Platform.android.kt
+            └── 📁res
+                └── 📁values
+                    ├── strings.xml
+            ├── AndroidManifest.xml
+        └── 📁commonMain
+            └── 📁composeResources
+                └── 📁drawable
+                    ├── compose-multiplatform.xml
+            └── 📁kotlin
+                └── 📁com
+                    └── 📁example
+                        └── 📁boilerplate_kotlin
+                            ├── App.kt
+                            ├── Greeting.kt
+                            ├── Platform.kt
+        └── 📁commonTest
+            └── 📁kotlin
+                └── 📁com
+                    └── 📁example
+                        └── 📁boilerplate_kotlin
+                            ├── ComposeAppCommonTest.kt
+        └── 📁iosMain
+            └── 📁kotlin
+                └── 📁com
+                    └── 📁example
+                        └── 📁boilerplate_kotlin
+                            ├── MainViewController.kt
+                            ├── Platform.ios.kt
+    └── build.gradle.kts
+```
+
 ## Prerequisites
 
 - **JDK 17 or higher**

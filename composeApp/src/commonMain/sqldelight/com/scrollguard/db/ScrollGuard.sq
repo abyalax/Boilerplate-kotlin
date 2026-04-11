@@ -1,0 +1,44 @@
+-- App usage sessions
+CREATE TABLE app_usage_record (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  package_name TEXT NOT NULL,
+  date TEXT NOT NULL,
+  duration_seconds INTEGER NOT NULL,
+  session_count INTEGER NOT NULL DEFAULT 1
+);
+
+-- Intervention events
+CREATE TABLE intervention_event (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  package_name TEXT NOT NULL,
+  triggered_at TEXT NOT NULL,
+  intervention_type TEXT NOT NULL,
+  user_response TEXT,           -- 'dismissed', 'snoozed', 'accepted'
+  snooze_count INTEGER DEFAULT 0
+);
+
+-- User configuration
+CREATE TABLE user_config (
+  key TEXT PRIMARY KEY,
+  value TEXT NOT NULL
+);
+
+getInterventionHistory:
+SELECT * FROM intervention_event ORDER BY triggered_at DESC;
+
+insertIntervention:
+INSERT INTO intervention_event(package_name, triggered_at, intervention_type, user_response, snooze_count)
+VALUES (?, ?, ?, ?, ?);
+
+getTodayOverrideCount:
+SELECT COUNT(*) FROM intervention_event WHERE date(triggered_at) = date('now') AND user_response = 'snoozed';
+
+getUsageByDate:
+SELECT * FROM app_usage_record WHERE date = ?;
+
+insertUsage:
+INSERT OR REPLACE INTO app_usage_record(package_name, date, duration_seconds, session_count)
+VALUES (?, ?, ?, ?);
+
+deleteOldRecords:
+DELETE FROM app_usage_record WHERE date < ?;

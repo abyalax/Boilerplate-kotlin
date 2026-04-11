@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Boilerplatekotlin</string>
+    <string name="app_name">ScrollGuard</string>
+    <string name="accessibility_service_description">ScrollGuard monitors your app usage to detect doomscrolling patterns and provide gentle interventions when needed.</string>
 </resources>
