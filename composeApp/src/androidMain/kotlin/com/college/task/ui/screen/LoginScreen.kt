@@ -2,9 +2,11 @@ package com.college.task.ui.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
 import com.college.task.ui.components.SensorForm
@@ -33,7 +35,14 @@ fun LoginScreen(onNavigate: (String, String, String) -> Unit) {
       onLonChange = { longitude = it }
     )
 
-    Button(onClick = { onNavigate(sensorName, latitude, longitude) }) { Text("Lanjut") }
+    Button(
+      onClick = { onNavigate(sensorName, latitude, longitude) },
+      modifier = Modifier.fillMaxWidth(),
+      colors = ButtonDefaults.buttonColors(
+        containerColor = Color.Blue,
+        contentColor = Color.White
+      )
+    ) { Text("Lanjut") }
   }
 }
 

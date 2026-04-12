@@ -11,32 +11,32 @@ import com.college.task.ui.screen.DashboardScreen
 
 /**
  * DashboardActivity
- * - Receive data dari LoginActivity via Intent extras
- * - Handle Implicit Intent untuk Google Maps
- * - Handle ActivityResultAPI untuk Verification flow
+ * - Receive data from LoginActivity via Intent extras
+ * - Handle Implicit Intent for Google Maps
+ * - Handle ActivityResultAPI for Verification flow
  */
 class DashboardActivity : ComponentActivity() {
 
-  // ActivityResultAPI launcher untuk VerificationActivity
+  // ActivityResultAPI launcher for VerificationActivity
   private val verificationLauncher =
     registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-      // Tangkap result dari VerificationActivity
+      // Catch result from VerificationActivity
       if (result.resultCode == RESULT_OK) {
         val verificationStatus =
           result.data?.getStringExtra(Constants.EXTRA_VERIFICATION_STATUS)
             ?: "UNKNOWN"
-        // Update state dengan result
+        // Update state with result
         verificationStatusState.value = verificationStatus
       }
     }
 
-  // State untuk verification status
+  // State for verification status
   private val verificationStatusState = mutableStateOf<String?>(null)
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    // Extract extras dari Intent
+    // Extract extras from Intent
     val sensorName =
       intent.getStringExtra(Constants.EXTRA_SENSOR_NAME) ?: Constants.DEFAULT_SENSOR_NAME
     val latitude = intent.getStringExtra(Constants.EXTRA_LATITUDE) ?: Constants.DEFAULT_LATITUDE
@@ -60,7 +60,7 @@ class DashboardActivity : ComponentActivity() {
           )
         },
         onVerify = {
-          // Launch VerificationActivity dengan ActivityResultAPI
+          // Launch VerificationActivity with ActivityResultAPI
           val verificationIntent =
             android.content.Intent(
               this@DashboardActivity,

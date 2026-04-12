@@ -8,8 +8,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 /**
- * SensorForm Component Reusable form untuk input Nama Sensor dan Koordinat (Latitude, Longitude)
- * Dipakai di LoginScreen dan VerificationScreen
+ * SensorForm Component Reusable form for input Nama Sensor and Coordinate (Latitude, Longitude)
+ * Used at LoginScreen and VerificationScreen
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,11 +31,10 @@ fun SensorForm(
       modifier = Modifier
         .fillMaxWidth()
         .padding(bottom = 12.dp),
-      placeholder = { Text("Contoh: Sensor A") },
+      placeholder = { Text("Example: Sensor A") },
       singleLine = true
     )
 
-    // Latitude OutlinedTextField
     OutlinedTextField(
       label = { Text("Latitude") },
       value = latitude,
@@ -43,17 +42,16 @@ fun SensorForm(
       modifier = Modifier
         .fillMaxWidth()
         .padding(bottom = 12.dp),
-      placeholder = { Text("Contoh: 1.23") },
+      placeholder = { Text("Example: 1.23") },
       singleLine = true
     )
 
-    // Longitude OutlinedTextField
     OutlinedTextField(
       label = { Text("Longitude") },
       value = longitude,
       onValueChange = onLonChange,
       modifier = Modifier.fillMaxWidth(),
-      placeholder = { Text("Contoh: 4.56") },
+      placeholder = { Text("Example: 4.56") },
       singleLine = true
     )
   }

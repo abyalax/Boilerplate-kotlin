@@ -5,7 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import com.college.task.utils.generateGeoUri
 
-/** Helper object untuk Implicit Intent Digunakan untuk launch aplikasi eksternal (Google Maps) */
+/** Helper object for Implicit Intent used for launch external apps (Google Maps) */
 object ImplicitIntentHelper {
 
     /**

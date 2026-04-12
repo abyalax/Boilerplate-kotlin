@@ -7,25 +7,25 @@ import com.college.task.navigation.IntentManager
 import com.college.task.ui.screen.LoginScreen
 
 /**
- * LoginActivity Entry point aplikasi
+ * LoginActivity as entry point apps
  * - Render LoginScreen composable
- * - Handle navigation ke DashboardActivity dengan Explicit Intent + Extras
+ * - Handle navigation ke DashboardActivity with Explicit Intent + Extras
  */
 class LoginActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            LoginScreen(
-                    onNavigate = { sensorName, latitude, longitude ->
-                        // Gunakan IntentManager untuk navigate dengan data
-                        IntentManager.navigateToDashboard(
-                                context = this@LoginActivity,
-                                sensorName = sensorName,
-                                latitude = latitude,
-                                longitude = longitude
-                        )
-                    }
-            )
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContent {
+      LoginScreen(
+        onNavigate = { sensorName, latitude, longitude ->
+          // Use IntentManager for navigate with data
+          IntentManager.navigateToDashboard(
+            context = this@LoginActivity,
+            sensorName = sensorName,
+            latitude = latitude,
+            longitude = longitude
+          )
         }
+      )
     }
+  }
 }

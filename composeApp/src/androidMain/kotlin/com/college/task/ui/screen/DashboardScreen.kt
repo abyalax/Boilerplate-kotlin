@@ -1,11 +1,15 @@
 package com.college.task.ui.screen
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.college.task.utils.formatCoordinates
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 
 /**
  * DashboardScreen Composable
@@ -26,106 +30,107 @@ fun DashboardScreen(
     modifier = Modifier
       .fillMaxSize()
       .padding(16.dp),
-    verticalArrangement = Arrangement.Top
+    verticalArrangement = Arrangement.Center,
+    horizontalAlignment = Alignment.CenterHorizontally
   ) {
-    // Title
-    Text(
-      text = "Dashboard Sensor",
-      style = MaterialTheme.typography.headlineMedium,
-      modifier = Modifier.padding(bottom = 24.dp)
-    )
 
-    // Sensor Info Card
-    Card(modifier = Modifier
-      .fillMaxWidth()
-      .padding(bottom = 16.dp)) {
-      Column(modifier = Modifier.padding(16.dp)) {
-        Text(
-          text = "Informasi Sensor",
-          style = MaterialTheme.typography.titleMedium,
-          modifier = Modifier.padding(bottom = 12.dp)
-        )
+    Column(
+      modifier = Modifier
+        .fillMaxWidth(0.85f), // biar gak full lebar
+      horizontalAlignment = Alignment.CenterHorizontally
+    ) {
 
-        // Sensor Name
-        Row(modifier = Modifier.padding(bottom = 8.dp)) {
-          Text(
-            text = "Nama: ",
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.weight(1f)
-          )
-          Text(
-            text = sensorName,
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.weight(1f)
-          )
-        }
+      Text(
+        text = "Dashboard Sensor",
+        style = MaterialTheme.typography.headlineMedium,
+        modifier = Modifier.padding(bottom = 24.dp)
+      )
 
-        // Coordinates
-        Row(modifier = Modifier.padding(bottom = 8.dp)) {
-          Text(
-            text = "Lokasi: ",
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.weight(1f)
-          )
-          Text(
-            text = formatCoordinates(latitude, longitude),
-            style = MaterialTheme.typography.bodyMedium,
-            modifier = Modifier.weight(1f)
-          )
-        }
-      }
-    }
-
-    // Verification Status Display (jika ada)
-    if (verificationStatus != null) {
       Card(
         modifier = Modifier
           .fillMaxWidth()
-          .padding(bottom = 16.dp),
-        colors = CardDefaults.cardColors(
-          containerColor = if (verificationStatus == "SUCCESS")
-            MaterialTheme.colorScheme.surfaceVariant
-          else MaterialTheme.colorScheme.errorContainer
-        )
+          .padding(bottom = 16.dp)
       ) {
-        Text(
-          text = "Status Verifikasi: $verificationStatus",
-          style = MaterialTheme.typography.bodyMedium,
+        Column(
           modifier = Modifier.padding(16.dp),
-          color =
-            if (verificationStatus == "SUCCESS")
-              MaterialTheme.colorScheme.onSurfaceVariant
-            else MaterialTheme.colorScheme.onErrorContainer
-        )
+          horizontalAlignment = Alignment.CenterHorizontally // ini tambahan
+        ) {
+          Text(
+            text = "Informasi Sensor",
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(bottom = 12.dp)
+          )
+
+          Text("Nama: $sensorName")
+          Text("Lokasi: ${formatCoordinates(latitude, longitude)}")
+        }
       }
-    }
 
-    Spacer(modifier = Modifier.weight(1f))
-
-    // Buttons Section
-    Column(
-      modifier = Modifier.fillMaxWidth(),
-      verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-      // View Map Button (Implicit Intent)
-      Button(
-        onClick = onViewMap,
-        modifier = Modifier.fillMaxWidth(),
-        colors =
-          ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primary
+      if (verificationStatus != null) {
+        Card(
+          modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 16.dp)
+        ) {
+          Text(
+            text = "Status Verifikasi: $verificationStatus",
+            modifier = Modifier.padding(16.dp)
           )
-      ) { Text("Lihat di Peta") }
+        }
+      }
 
-      // Verify Sensor Button (ActivityResultAPI)
-      Button(
-        onClick = onVerify,
-        modifier = Modifier.fillMaxWidth(),
-        colors =
-          ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.secondary
+      Column(
+        verticalArrangement = Arrangement.spacedBy(12.dp)
+      ) {
+        Button(
+          onClick = onViewMap,
+          modifier = Modifier.fillMaxWidth(),
+          colors = ButtonDefaults.buttonColors(
+            containerColor = Color.Blue,
+            contentColor = Color.White
           )
-      ) { Text("Verifikasi Sensor") }
+        ) { Text("Lihat di Peta") }
+
+        Button(
+          onClick = onVerify,
+          modifier = Modifier.fillMaxWidth(),
+          colors = ButtonDefaults.buttonColors(
+            containerColor = Color.Gray,
+            contentColor = Color.White
+          )
+        ) { Text("Verifikasi Sensor") }
+      }
     }
   }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun DashboardScreenPreview() {
+  MaterialTheme {
+    DashboardScreen(
+      sensorName = "Sensor DHT11",
+      latitude = "-6.200000",
+      longitude = "106.816666",
+      onViewMap = {},
+      onVerify = {},
+      verificationStatus = null
+    )
+  }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun DashboardScreenVerifiedPreview() {
+  MaterialTheme {
+    DashboardScreen(
+      sensorName = "Sensor DHT11",
+      latitude = "-6.200000",
+      longitude = "106.816666",
+      onViewMap = {},
+      onVerify = {},
+      verificationStatus = "Verified by Admin"
+    )
+  }
+}
+
