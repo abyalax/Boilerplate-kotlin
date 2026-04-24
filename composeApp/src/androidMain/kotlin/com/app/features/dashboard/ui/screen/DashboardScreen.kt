@@ -6,17 +6,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.app.core.theme.ApplicationTheme
 import com.app.core.utils.formatCoordinates
 
-/**
- * DashboardScreen Composable
- * - Display Nama Sensor dari Intent extras
- * - Button "Lihat di Peta" (Implicit Intent → Google Maps)
- * - Button "Verifikasi Sensor" (ActivityResultAPI)
- */
 @Composable
 fun DashboardScreen(
         sensorName: String,
@@ -26,63 +20,68 @@ fun DashboardScreen(
         onVerify: () -> Unit,
         verificationStatus: String? = null
 ) {
-  Column(
-          modifier = Modifier.fillMaxSize().padding(16.dp),
-          verticalArrangement = Arrangement.Center,
-          horizontalAlignment = Alignment.CenterHorizontally
+  Surface(
+          modifier = Modifier.fillMaxSize(),
+          color = MaterialTheme.colorScheme.background
   ) {
     Column(
-            modifier = Modifier.fillMaxWidth(0.85f), // biar gak full lebar
+            modifier = Modifier.fillMaxSize().padding(16.dp),
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
     ) {
-      Text(
-              text = "Dashboard Sensor",
-              style = MaterialTheme.typography.headlineMedium,
-              modifier = Modifier.padding(bottom = 24.dp)
-      )
+      Column(
+              modifier = Modifier.fillMaxWidth(0.85f), // biar gak full lebar
+              horizontalAlignment = Alignment.CenterHorizontally
+      ) {
+        Text(
+                text = "Dashboard Sensor",
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.padding(bottom = 24.dp)
+        )
 
-      Card(modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)) {
-        Column(
-                modifier = Modifier.padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally // ini tambahan
-        ) {
-          Text(
-                  text = "Informasi Sensor",
-                  style = MaterialTheme.typography.titleMedium,
-                  modifier = Modifier.padding(bottom = 12.dp)
-          )
-
-          Text("Nama: $sensorName")
-          Text("Lokasi: ${formatCoordinates(latitude, longitude)}")
-        }
-      }
-
-      if (verificationStatus != null) {
         Card(modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)) {
-          Text(text = "Status Verifikasi: $verificationStatus", modifier = Modifier.padding(16.dp))
+          Column(
+                  modifier = Modifier.padding(16.dp),
+                  horizontalAlignment = Alignment.CenterHorizontally // ini tambahan
+          ) {
+            Text(
+                    text = "Informasi Sensor",
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(bottom = 12.dp)
+            )
+
+            Text("Nama: $sensorName")
+            Text("Lokasi: ${formatCoordinates(latitude, longitude)}")
+          }
         }
-      }
 
-      Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Button(
-                onClick = onViewMap,
-                modifier = Modifier.fillMaxWidth(),
-                colors =
-                        ButtonDefaults.buttonColors(
-                                containerColor = Color.Blue,
-                                contentColor = Color.White
-                        )
-        ) { Text("Lihat di Peta") }
+        if (verificationStatus != null) {
+          Card(modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)) {
+            Text(text = "Status Verifikasi: $verificationStatus", modifier = Modifier.padding(16.dp))
+          }
+        }
 
-        Button(
-                onClick = onVerify,
-                modifier = Modifier.fillMaxWidth(),
-                colors =
-                        ButtonDefaults.buttonColors(
-                                containerColor = Color.Gray,
-                                contentColor = Color.White
-                        )
-        ) { Text("Verifikasi Sensor") }
+        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
+          Button(
+                  onClick = onViewMap,
+                  modifier = Modifier.fillMaxWidth(),
+                  colors =
+                          ButtonDefaults.buttonColors(
+                                  containerColor = MaterialTheme.colorScheme.primary,
+                                  contentColor = MaterialTheme.colorScheme.onPrimary
+                          )
+          ) { Text("Lihat di Peta") }
+
+          Button(
+                  onClick = onVerify,
+                  modifier = Modifier.fillMaxWidth(),
+                  colors =
+                          ButtonDefaults.buttonColors(
+                                  containerColor = MaterialTheme.colorScheme.secondary,
+                                  contentColor = MaterialTheme.colorScheme.onSecondary
+                          )
+          ) { Text("Verifikasi Sensor") }
+        }
       }
     }
   }
@@ -91,7 +90,7 @@ fun DashboardScreen(
 @Preview(showBackground = true)
 @Composable
 fun DashboardScreenPreview() {
-  MaterialTheme {
+  ApplicationTheme {
     DashboardScreen(
             sensorName = "Sensor DHT11",
             latitude = "-6.200000",
@@ -106,7 +105,7 @@ fun DashboardScreenPreview() {
 @Preview(showBackground = true)
 @Composable
 fun DashboardScreenVerifiedPreview() {
-  MaterialTheme {
+  ApplicationTheme {
     DashboardScreen(
             sensorName = "Sensor DHT11",
             latitude = "-6.200000",

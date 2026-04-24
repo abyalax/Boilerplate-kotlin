@@ -8,7 +8,7 @@ Proyek ini adalah **Kotlin Multiplatform Project** yang menggunakan **Compose Mu
 
 ```
 Boilerplate-kotlin/
-├── 📁 composeApp/           # Module utama KMP (shared logic & UI)
+├── 📁 app/                  # Module utama aplikasi
 ├── 📁 iosApp/               # Proyek Xcode untuk iOS
 ├── 📁 gradle/               # Konfigurasi Gradle
 ├── 📄 build.gradle.kts      # Build script root
@@ -22,109 +22,120 @@ Boilerplate-kotlin/
 
 ---
 
-## 📱 Module `composeApp` (Kotlin Multiplatform Module)
+## 📱 Module `app` (Aplikasi Utama)
 
-Ini adalah module utama yang berisi semua shared logic dan UI yang akan digunakan oleh kedua platform.
+Ini adalah module utama yang berisi semua kode aplikasi dengan struktur yang terorganisir berdasarkan fitur dan arsitektur yang clean.
 
-### Struktur Lengkap `composeApp/`
+### Struktur Lengkap `app/`
 
 ```
-composeApp/
-├── 📁 build/                # Hasil build kompilasi
-├── 📁 src/                  # Source code
-│   ├── 📁 androidMain/      # Kode khusus Android
-│   ├── 📁 commonMain/       # Kode shared untuk semua platform
-│   ├── 📁 commonTest/       # Test shared
-│   └── 📁 iosMain/          # Kode khusus iOS
-└── 📄 build.gradle.kts      # Build script untuk module ini
+└── 📁app
+    └── 📁core
+        └── 📁common
+            ├── Constant.kt
+        └── 📁navigation
+            ├── ImplicitIntentHelper.kt
+            ├── IntentManager.kt
+        └── 📁utils
+            ├── MapUtils.kt
+            ├── VaildateCoordinate.kt
+    └── 📁features
+        └── 📁auth
+            └── 📁login
+                └── 📁activities
+                    ├── LoginActivity.kt
+                └── 📁ui
+                    └── 📁components
+                        ├── LoginForm.kt
+                    └── 📁screen
+                        ├── LoginScreen.kt
+            └── 📁register
+        └── 📁dashboard
+            └── 📁activities
+                ├── DashboardActivity.kt
+                ├── VerificationActivity.kt
+            └── 📁model
+                ├── Sensor.kt
+                ├── VerificationResult.kt
+            └── 📁ui
+                └── 📁components
+                └── �screen
+                    ├── DashboardScreen.kt
+                    ├── VerificationScreen.kt
+    ├── MainActivity.kt
+    └── Platform.android.kt
 ```
 
 ---
 
-### 📂 `src/commonMain/` - Shared Code
+### 🏗️ Struktur Arsitektur `app/`
 
-Ini adalah folder **paling penting** karena berisi kode yang akan berjalan di Android dan iOS.
+Module `app` mengikuti arsitektur **Clean Architecture** dengan pemisahan yang jelas antara fitur, core logic, dan platform-specific code.
 
-```
-commonMain/
-├── 📁 composeResources/     # Resources untuk Compose UI
-│   └── 📁 drawable/         # Gambar & icon
-│       └── compose-multiplatform.xml
-└── 📁 kotlin/               # Source code Kotlin
-    └── 📁 com/
-        └── 📁 example/
-            └── 📁 boilerplate_kotlin/
-                ├── 📄 App.kt        # Aplikasi utama (Compose UI)
-                ├── 📄 Greeting.kt   # Contoh komponen UI
-                └── 📄 Platform.kt   # Interface untuk platform-specific
-```
+#### 📦 `core/` - Komponen Inti
 
-**Fungsi:**
-- **`App.kt`**: Entry point aplikasi dengan Compose UI
-- **`Greeting.kt`**: Contoh komponen UI yang reusable
-- **`Platform.kt`**: Interface untuk abstraksi platform-specific
-- **`composeResources/`**: Resources yang digunakan oleh Compose (gambar, icon, dll)
-
----
-
-### 🤖 `src/androidMain/` - Android Specific Code
-
-Kode yang hanya berjalan di Android.
+Berisi komponen-komponen yang digunakan di seluruh aplikasi:
 
 ```
-androidMain/
-├── 📁 kotlin/
-│   └── 📁 com/
-│       └── 📁 example/
-│           └── 📁 boilerplate_kotlin/
-│               ├── 📄 MainActivity.kt    # Activity utama Android
-│               └── 📄 Platform.android.kt # Implementasi platform Android
-├── 📁 res/                   # Android resources
-│   └── 📁 values/
-│       └── 📄 strings.xml    # String resources
-└── 📄 AndroidManifest.xml    # Manifest file Android
+core/
+└── 📁common/           # Konstanta dan utilitas umum
+    └── Constant.kt
+└── 📁navigation/       # Navigasi dan intent handling
+    ├── ImplicitIntentHelper.kt
+    ├── IntentManager.kt
+└── 📁utils/           # Utilitas spesifik
+    ├── MapUtils.kt
+    ├── VaildateCoordinate.kt
 ```
 
-**Fungsi:**
-- **`MainActivity.kt`**: Entry point aplikasi Android
-- **`Platform.android.kt`**: Implementasi interface Platform untuk Android
-- **`AndroidManifest.xml`**: Konfigurasi aplikasi Android
-- **`res/`**: Resources khusus Android (strings, layouts, dll)
+- **`common/`**: Konstanta dan class yang digunakan secara global
+- **`navigation/`**: Logic untuk navigasi antar screen dan handling intent
+- **`utils/`**: Fungsi-fungsi helper untuk operasi spesifik (maps, validasi, dll)
 
----
+#### 🎯 `features/` - Fitur Aplikasi
 
-### 🍎 `src/iosMain/` - iOS Specific Code
-
-Kode yang hanya berjalan di iOS.
+Berisi semua fitur aplikasi yang diorganisir berdasarkan domain:
 
 ```
-iosMain/
-└── 📁 kotlin/
-    └── 📁 com/
-        └── 📁 example/
-            └── 📁 boilerplate_kotlin/
-                ├── 📄 MainViewController.kt # View controller untuk iOS
-                └── 📄 Platform.ios.kt       # Implementasi platform iOS
+features/
+└── 📁auth/            # Fitur Autentikasi
+    └── 📁login/       # Login flow
+        ├── 📁activities/    # Activities Android
+        │   └── LoginActivity.kt
+        └── 📁ui/           # Komponen UI
+            ├── 📁components/  # UI components reusable
+            │   └── LoginForm.kt
+            └── 📁screen/      # Screen utama
+                └── LoginScreen.kt
+    └── 📁register/     # Registration flow (placeholder)
+└── 📁dashboard/       # Fitur Dashboard
+    ├── 📁activities/      # Activities Android
+    │   ├── DashboardActivity.kt
+    │   └── VerificationActivity.kt
+    ├── 📁model/          # Data models
+    │   ├── Sensor.kt
+    │   └── VerificationResult.kt
+    └── 📁ui/             # Komponen UI
+        ├── 📁components/  # UI components reusable
+        └── 📁screen/      # Screen utama
+            ├── DashboardScreen.kt
+            └── VerificationScreen.kt
 ```
 
-**Fungsi:**
-- **`MainViewController.kt`**: Bridge antara Kotlin dan iOS UIKit
-- **`Platform.ios.kt`**: Implementasi interface Platform untuk iOS
+- **`auth/`**: Semua logic terkait autentikasi (login, register, dll)
+- **`dashboard/`**: Fitur dashboard dan verifikasi sensor
+- Setiap fitur memiliki struktur konsisten: `activities/`, `model/`, dan `ui/`
 
----
-
-### 🧪 `src/commonTest/` - Shared Tests
-
-Test cases yang berjalan di semua platform.
+#### 📱 Root Level Components
 
 ```
-commonTest/
-└── 📁 kotlin/
-    └── 📁 com/
-        └── 📁 example/
-            └── 📁 boilerplate_kotlin/
-                └── 📄 ComposeAppCommonTest.kt # Test untuk shared code
+app/
+├── MainActivity.kt        # Entry point utama aplikasi Android
+└── Platform.android.kt   # Implementasi platform-specific
 ```
+
+- **`MainActivity.kt`**: Activity utama yang mengatur navigation dan lifecycle
+- **`Platform.android.kt`**: Implementasi interface untuk platform Android
 
 ---
 
@@ -140,8 +151,7 @@ iosApp/
 └── 📄 iosApp.xcworkspace/   # Workspace Xcode
 ```
 
-**Fungsi:**
-- Berfungsi sebagai **wrapper** untuk memanggil kode Kotlin dari `composeApp`
+- Berfungsi sebagai **wrapper** untuk memanggil kode Kotlin dari `app`
 - Mengatur konfigurasi build iOS
 - Mengelola deployment ke App Store
 
@@ -150,6 +160,7 @@ iosApp/
 ## 🔧 Konfigurasi Gradle
 
 ### `gradle/`
+
 ```
 gradle/
 ├── 📄 gradle-daemon-jvm.properties  # Konfigurasi JVM untuk Gradle
@@ -159,7 +170,6 @@ gradle/
     └── 📄 gradle-wrapper.properties
 ```
 
-**Fungsi:**
 - **`libs.versions.toml`**: Centralized dependency management
 - **`wrapper/`**: Memastikan konsistensi Gradle version
 
@@ -174,30 +184,35 @@ gradle/
 
 ## 🎯 Alur Kerja Development
 
-### 1. **Shared Code Development** (`commonMain`)
-- Tulis business logic dan UI di sini
-- Gunakan Compose Multiplatform untuk UI
-- Buat interface untuk platform-specific functionality
+### 1. **Core Development** (`core/`)
 
-### 2. **Platform Implementation** (`androidMain` & `iosMain`)
-- Implementasikan interface dari `commonMain`
-- Tambahkan platform-specific functionality
-- Android: Activities, Services, Android APIs
-- iOS: ViewControllers, iOS APIs
+- Tulis konstanta, utilitas, dan navigation logic di folder `core/`
+- Komponen di sini digunakan di seluruh aplikasi
+- Fokus pada reusable components
 
-### 3. **Testing** (`commonTest`)
-- Tulis test untuk shared logic
-- Test akan berjalan di semua platform
+### 2. **Feature Development** (`features/`)
+
+- Buat fitur baru di dalam folder `features/`
+- Setiap fitur memiliki struktur konsisten: `activities/`, `model/`, `ui/`
+- Implementasi business logic dan UI untuk fitur spesifik
+
+### 3. **Platform Integration**
+
+- `MainActivity.kt` mengatur lifecycle dan navigation
+- `Platform.android.kt` untuk platform-specific implementations
+- Integrasi dengan Android system components
 
 ### 4. **Build & Deploy**
+
 - Android: Build APK/AAB dari Android Studio
-- iOS: Build IPA dari Xcode
+- iOS: Build IPA dari Xcode (jika ada module iOS)
 
 ---
 
 ## 📚 Konsep Penting Kotlin Multiplatform
 
 ### **Expect/Actual Pattern**
+
 ```kotlin
 // commonMain
 expect fun getPlatformName(): String
@@ -205,16 +220,18 @@ expect fun getPlatformName(): String
 // androidMain
 actual fun getPlatformName(): String = "Android"
 
-// iosMain  
+// iosMain
 actual fun getPlatformName(): String = "iOS"
 ```
 
 ### **Compose Multiplatform**
+
 - UI framework yang berjalan di Android & iOS
 - Satu codebase UI untuk kedua platform
 - Declarative UI seperti React Native
 
 ### **Shared Business Logic**
+
 - Network calls, data processing, state management
 - Database operations (dengan SQLDelight)
 - Business rules dan validation
@@ -223,10 +240,10 @@ actual fun getPlatformName(): String = "iOS"
 
 ## 🔍 Tips untuk Pemula
 
-1. **Fokus di `commonMain`** - Ini adalah core aplikasi kamu
+1. **Fokus di `core/` dan `features/`** - Ini adalah core aplikasi kamu
 2. **Pelajari Compose** - UI framework modern dari Google
-3. **Pahami Expect/Actual** - Pattern untuk platform-specific code
-4. **Start Simple** - Mulai dengan logic sederhana sebelum complex features
+3. **Ikuti struktur fitur** - Setiap fitur punya pola konsisten: activities/, model/, ui/
+4. **Start Simple** - Mulai dengan fitur sederhana sebelum complex features
 5. **Use Version Catalog** - Mudahkan dependency management
 
 ---
@@ -240,4 +257,4 @@ actual fun getPlatformName(): String = "iOS"
 
 ---
 
-*Happy Coding! 🚀*
+_Happy Coding! 🚀_

@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.*
 import com.app.core.common.Constants
 import com.app.core.navigation.ImplicitIntentHelper
+import com.app.core.theme.ApplicationTheme
 import com.app.features.dashboard.ui.screen.DashboardScreen
 
 /**
@@ -46,29 +47,31 @@ class DashboardActivity : ComponentActivity() {
       // Observe verification status
       val verificationStatus = verificationStatusState.value
 
-      DashboardScreen(
-              sensorName = sensorName,
-              latitude = latitude,
-              longitude = longitude,
-              onViewMap = {
-                // Implicit Intent → Google Maps
-                ImplicitIntentHelper.openMaps(
-                        context = this@DashboardActivity,
-                        latitude = latitude,
-                        longitude = longitude
-                )
-              },
-              onVerify = {
-                // Launch VerificationActivity with ActivityResultAPI
-                val verificationIntent =
-                    Intent(
-                            this@DashboardActivity,
-                            VerificationActivity::class.java
+      ApplicationTheme {
+          DashboardScreen(
+                  sensorName = sensorName,
+                  latitude = latitude,
+                  longitude = longitude,
+                  onViewMap = {
+                    // Implicit Intent → Google Maps
+                    ImplicitIntentHelper.openMaps(
+                            context = this@DashboardActivity,
+                            latitude = latitude,
+                            longitude = longitude
                     )
-                verificationLauncher.launch(verificationIntent)
-              },
-              verificationStatus = verificationStatus
-      )
+                  },
+                  onVerify = {
+                    // Launch VerificationActivity with ActivityResultAPI
+                    val verificationIntent =
+                        Intent(
+                                this@DashboardActivity,
+                                VerificationActivity::class.java
+                        )
+                    verificationLauncher.launch(verificationIntent)
+                  },
+                  verificationStatus = verificationStatus
+          )
+      }
     }
   }
 }

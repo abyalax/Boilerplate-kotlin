@@ -1,33 +1,32 @@
 package com.app
 
+import com.app.core.theme.ApplicationTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.app.Greeting
 
 @Composable
 fun App() {
-    val greeting = remember { Greeting() }
-    
-    MaterialTheme {
+    ApplicationTheme {
+
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
+            Column {
                 Text(
-                    text = greeting.greet(),
-                    style = MaterialTheme.typography.headlineMedium
+                    text = "Hello KMP!",
+                    color = MaterialTheme.colorScheme.onBackground
                 )
+                Button(
+                    onClick = {},
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary
+                    )
+                ) {
+                    Text("Action")
+                }
             }
         }
     }

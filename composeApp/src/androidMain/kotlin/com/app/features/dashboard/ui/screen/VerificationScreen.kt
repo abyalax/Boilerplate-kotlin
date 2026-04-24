@@ -6,8 +6,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.app.core.theme.ApplicationTheme
 
 /**
  * VerificationScreen Composable
@@ -19,71 +20,84 @@ import androidx.compose.ui.unit.dp
 fun VerificationScreen(onSuccess: (String) -> Unit, onCancel: () -> Unit) {
   var isVerifying by remember { mutableStateOf(false) }
 
-  Column(
-          modifier = Modifier.fillMaxSize().padding(16.dp),
-          verticalArrangement = Arrangement.Center,
-          horizontalAlignment = Alignment.CenterHorizontally
+  Surface(
+          modifier = Modifier.fillMaxSize(),
+          color = MaterialTheme.colorScheme.background
   ) {
     Column(
-            modifier = Modifier.fillMaxWidth(0.85f),
+            modifier = Modifier.fillMaxSize().padding(16.dp),
+            verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
     ) {
-      Text(
-              text = "Verifikasi Sensor",
-              style = MaterialTheme.typography.headlineMedium,
-              modifier = Modifier.padding(bottom = 24.dp)
-      )
-
-      Card(modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp)) {
+      Column(
+              modifier = Modifier.fillMaxWidth(0.85f),
+              horizontalAlignment = Alignment.CenterHorizontally
+      ) {
         Text(
-                text = "Lakukan verifikasi untuk memastikan sensor berfungsi dengan baik",
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(16.dp)
+                text = "Verifikasi Sensor",
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.padding(bottom = 24.dp)
         )
-      }
 
-      repeat(3) { index ->
-        Row(
-                modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
-                verticalAlignment = Alignment.CenterVertically
-        ) {
-          Text(text = "✓", modifier = Modifier.padding(end = 12.dp))
+        Card(modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp)) {
           Text(
-                  text =
-                          when (index) {
-                            0 -> "Cek koneksi sensor"
-                            1 -> "Kalibrasi perangkat"
-                            else -> "Verifikasi data"
-                          }
+                  text = "Lakukan verifikasi untuk memastikan sensor berfungsi dengan baik",
+                  style = MaterialTheme.typography.bodyMedium,
+                  modifier = Modifier.padding(16.dp)
           )
         }
-      }
 
-      Column(
-              modifier = Modifier.padding(top = 24.dp),
-              verticalArrangement = Arrangement.spacedBy(12.dp)
-      ) {
-        Button(
-                onClick = {
-                  isVerifying = true
-                  onSuccess("SUCCESS")
-                  isVerifying = false
-                },
-                modifier = Modifier.fillMaxWidth(),
-                enabled = !isVerifying,
-                colors =
-                        ButtonDefaults.buttonColors(
-                                containerColor = Color.Blue,
-                                contentColor = Color.White
-                        )
-        ) { Text(if (isVerifying) "Memverifikasi..." else "Verifikasi") }
+        repeat(3) { index ->
+          Row(
+                  modifier = Modifier.fillMaxWidth().padding(bottom = 12.dp),
+                  verticalAlignment = Alignment.CenterVertically
+          ) {
+            Text(text = "✓", modifier = Modifier.padding(end = 12.dp))
+            Text(
+                    text =
+                            when (index) {
+                              0 -> "Cek koneksi sensor"
+                              1 -> "Kalibrasi perangkat"
+                              else -> "Verifikasi data"
+                            }
+            )
+          }
+        }
 
-        OutlinedButton(
-                onClick = onCancel,
-                modifier = Modifier.fillMaxWidth(),
-                enabled = !isVerifying
-        ) { Text("Batal") }
+        Column(
+                modifier = Modifier.padding(top = 24.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+          Button(
+                  onClick = {
+                    isVerifying = true
+                    onSuccess("SUCCESS")
+                    isVerifying = false
+                  },
+                  modifier = Modifier.fillMaxWidth(),
+                  enabled = !isVerifying,
+                  colors =
+                          ButtonDefaults.buttonColors(
+                                  containerColor = MaterialTheme.colorScheme.primary,
+                                  contentColor = MaterialTheme.colorScheme.onPrimary
+                          )
+          ) { Text(if (isVerifying) "Memverifikasi..." else "Verifikasi") }
+
+          OutlinedButton(
+                  onClick = onCancel,
+                  modifier = Modifier.fillMaxWidth(),
+                  enabled = !isVerifying
+          ) { Text("Batal") }
+        }
       }
     }
   }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun VerificationScreenPreview() {
+    ApplicationTheme {
+        VerificationScreen(onSuccess = {}, onCancel = {})
+    }
 }

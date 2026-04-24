@@ -6,11 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.app.core.theme.ApplicationTheme
 
-/**
- * SensorForm Component Reusable form for input Nama Sensor and Coordinate (Latitude, Longitude)
- * Used at LoginScreen and VerificationScreen
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SensorForm(
@@ -23,7 +20,6 @@ fun SensorForm(
         modifier: Modifier = Modifier
 ) {
   Column(modifier = modifier.fillMaxWidth().padding(top = 16.dp)) {
-    // Sensor Name OutlinedTextField
     OutlinedTextField(
             label = { Text("Nama Sensor") },
             value = sensorName,
@@ -56,12 +52,14 @@ fun SensorForm(
 @Preview(showBackground = true)
 @Composable
 fun SensorFormPreview() {
-  SensorForm(
-          sensorName = "Sensor A",
-          onNameChange = {},
-          latitude = "-6.200000",
-          onLatChange = {},
-          longitude = "106.816666",
-          onLonChange = {}
-  )
+  ApplicationTheme {
+    SensorForm(
+            sensorName = "Sensor A",
+            onNameChange = {},
+            latitude = "-6.200000",
+            onLatChange = {},
+            longitude = "106.816666",
+            onLonChange = {}
+    )
+  }
 }
