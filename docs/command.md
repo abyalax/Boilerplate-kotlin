@@ -2,7 +2,7 @@
 
 ## Overview
 
-Documentation of essential commands for ScrollGuard Kotlin Multiplatform development, debugging, deployment, and app distribution.
+Documentation of essential commands for Kotlin Multiplatform development, debugging, deployment, and app distribution.
 
 ## Prerequisites
 
@@ -106,19 +106,19 @@ Build and install debug APK to connected device/emulator.
 ### Uninstall App
 
 ```bash
-adb uninstall com.scrollguard
+adb uninstall com.app
 ```
 
-Uninstall ScrollGuard from device/emulator.
+Uninstall app from device/emulator.
 
 ### Reinstall Fresh
 
 ```bash
 # Bash/Linux/macOS
-adb uninstall com.scrollguard && ./gradlew composeApp:installDebug
+adb uninstall com.app && ./gradlew composeApp:installDebug
 
 # PowerShell (Windows)
-adb uninstall com.scrollguard; ./gradlew composeApp:installDebug
+adb uninstall com.app; ./gradlew composeApp:installDebug
 ```
 
 Complete reinstall (uninstall + install).
@@ -130,23 +130,23 @@ Complete reinstall (uninstall + install).
 ### Start App via ADB
 
 ```bash
-adb shell am start -n com.scrollguard/.MainActivity
+adb shell am start -n com.app/.MainActivity
 ```
 
-Launch ScrollGuard app directly.
+Launch the app directly.
 
 ### Force Stop App
 
 ```bash
-adb shell am force-stop com.scrollguard
+adb shell am force-stop com.app
 ```
 
-Stop the ScrollGuard app.
+Stop the app.
 
 ### Clear App Data
 
 ```bash
-adb shell pm clear com.scrollguard
+adb shell pm clear com.app
 ```
 
 Reset app to fresh state.
@@ -159,7 +159,7 @@ Reset app to fresh state.
 
 ```powershell
 # PowerShell uses semicolon instead of &&
-adb uninstall com.scrollguard; ./gradlew composeApp:installDebug
+adb uninstall com.app; ./gradlew composeApp:installDebug
 
 # PowerShell uses different syntax for some operations
 # Copy file
@@ -255,10 +255,10 @@ Copy APK to current directory.
 ./gradlew composeApp:installDebug
 
 # 3. Launch app
-adb shell am start -n com.scrollguard/.MainActivity
+adb shell am start -n com.app/.MainActivity
 
 # 4. Monitor logs
-adb logcat -s ScrollGuard
+adb logcat -s App
 ```
 
 ### Debug Workflow
@@ -297,15 +297,16 @@ cp composeApp/build/outputs/apk/release/composeApp-release.apk ./ScrollGuard-rel
 
 ## 📋 Quick Reference
 
-| Command                                               | Purpose                |
-| ----------------------------------------------------- | ---------------------- |
-| `./gradlew composeApp:assembleDebug`                  | Build debug APK        |
-| `./gradlew composeApp:installDebug`                   | Install to device      |
-| `adb shell am start -n com.scrollguard/.MainActivity` | Launch app             |
-| `adb uninstall com.scrollguard`                       | Uninstall app          |
-| `./gradlew composeApp:assembleRelease`                | Build release APK      |
-| `adb devices`                                         | List connected devices |
-| `adb logcat -s ScrollGuard`                           | Monitor app logs       |
+| Command                                       | Purpose                |
+| --------------------------------------------- | ---------------------- |
+| `./gradlew composeApp:assembleDebug`          | Build debug APK        |
+| `./gradlew composeApp:installDebug`           | Install to device      |
+| `adb shell am start -n com.app/.MainActivity` | Launch app             |
+| `adb uninstall com.app`                       | Uninstall app          |
+| `./gradlew composeApp:assembleRelease`        | Build release APK      |
+| `adb devices`                                 | List connected devices |
+| `adb logcat -s App`                           | Monitor app logs       |
+| `./gradlew composeApp:installRelease`         | Install release APK    |
 
 ---
 
@@ -335,7 +336,7 @@ adb devices -l
 
 ```bash
 # Force reinstall
-adb uninstall com.scrollguard
+adb uninstall com.app
 ./gradlew composeApp:installDebug
 
 # Check available space
@@ -346,8 +347,8 @@ adb shell df /data/local/tmp
 
 ## 📱 Device Information
 
-- **Package Name**: `com.scrollguard`
-- **Main Activity**: `com.scrollguard.MainActivity`
+- **Package Name**: `com.app`
+- **Main Activity**: `com.app.MainActivity`
 - **Debug APK Location**: `composeApp/build/outputs/apk/debug/composeApp-debug.apk`
 - **Release APK Location**: `composeApp/build/outputs/apk/release/composeApp-release.apk`
 
@@ -383,4 +384,4 @@ android {
 
 ---
 
-_Last updated: ScrollGuard Development v1.0_
+_Last updated: Kotlin Multiplatform Development v1.0_
