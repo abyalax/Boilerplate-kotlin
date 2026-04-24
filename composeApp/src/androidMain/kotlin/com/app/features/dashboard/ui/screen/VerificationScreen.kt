@@ -1,4 +1,4 @@
-package com.app.ui.screen
+package com.app.features.dashboard.ui.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement

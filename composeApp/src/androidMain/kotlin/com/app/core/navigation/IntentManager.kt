@@ -1,9 +1,9 @@
-package com.app.navigation
+package com.app.core.navigation
 
 import android.content.Context
 import android.content.Intent
-import com.app.activities.DashboardActivity
-import com.app.common.Constants
+import com.app.features.dashboard.activities.DashboardActivity
+import com.app.core.common.Constants
 
 /**
  * Helper object untuk Explicit Intent Digunakan untuk navigate antar Activities dengan data

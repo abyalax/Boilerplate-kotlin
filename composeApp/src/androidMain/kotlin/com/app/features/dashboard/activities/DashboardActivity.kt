@@ -1,13 +1,14 @@
-package com.app.activities
+package com.app.features.dashboard.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.*
-import com.app.common.Constants
-import com.app.navigation.ImplicitIntentHelper
-import com.app.ui.screen.DashboardScreen
+import com.app.core.common.Constants
+import com.app.core.navigation.ImplicitIntentHelper
+import com.app.features.dashboard.ui.screen.DashboardScreen
 
 /**
  * DashboardActivity
@@ -60,10 +61,10 @@ class DashboardActivity : ComponentActivity() {
               onVerify = {
                 // Launch VerificationActivity with ActivityResultAPI
                 val verificationIntent =
-                        android.content.Intent(
-                                this@DashboardActivity,
-                                VerificationActivity::class.java
-                        )
+                    Intent(
+                            this@DashboardActivity,
+                            VerificationActivity::class.java
+                    )
                 verificationLauncher.launch(verificationIntent)
               },
               verificationStatus = verificationStatus

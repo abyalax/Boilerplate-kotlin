@@ -12,7 +12,7 @@
 
         <!-- LoginActivity - Entry Point (LAUNCHER) -->
         <activity
-            android:name="com.app.activities.LoginActivity"
+            android:name="com.app.features.auth.login.activities.LoginActivity"
             android:exported="true"
             android:theme="@android:style/Theme.Material.Light">
             <intent-filter>
@@ -23,13 +23,13 @@
 
         <!-- DashboardActivity - Receive data from LoginActivity -->
         <activity
-            android:name="com.app.activities.DashboardActivity"
+            android:name="com.app.features.dashboard.activities.DashboardActivity"
             android:exported="true"
             android:theme="@android:style/Theme.Material.Light" />
 
         <!-- VerificationActivity - Return result via ActivityResultAPI -->
         <activity
-            android:name=".activities.VerificationActivity"
+            android:name=".features.dashboard.activities.VerificationActivity"
             android:exported="true"
             android:theme="@android:style/Theme.Material.Light" />
 

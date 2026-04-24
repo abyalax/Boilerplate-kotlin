@@ -1,11 +1,11 @@
-package com.app.activities
+package com.app.features.dashboard.activities
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import com.app.common.Constants
-import com.app.ui.screen.VerificationScreen
+import com.app.core.common.Constants
+import com.app.features.dashboard.ui.screen.VerificationScreen
 
 /**
  * VerificationActivity

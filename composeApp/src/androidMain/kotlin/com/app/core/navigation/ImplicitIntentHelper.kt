@@ -1,9 +1,9 @@
-package com.app.navigation
+package com.app.core.navigation
 
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import com.app.utils.generateGeoUri
+import com.app.core.utils.generateGeoUri
 
 /** Helper object for Implicit Intent used for launch external apps (Google Maps) */
 object ImplicitIntentHelper {

@@ -1,4 +1,4 @@
-package com.app.common
+package com.app.core.common
 
 object Constants {
     const val EXTRA_SENSOR_NAME = "sensor_name"
