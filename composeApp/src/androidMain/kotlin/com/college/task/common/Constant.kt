@@ -7,6 +7,6 @@ object Constants {
     const val EXTRA_VERIFICATION_STATUS = "verification_status"
     // Default values
     const val DEFAULT_SENSOR_NAME = "Sensor Default"
-    const val DEFAULT_LATITUDE = "0.0"
-    const val DEFAULT_LONGITUDE = "0.0"
+    const val DEFAULT_LATITUDE = "-7.844392437170978"
+    const val DEFAULT_LONGITUDE = "112.00635541197693"
 }

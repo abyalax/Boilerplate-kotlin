@@ -9,18 +9,17 @@ import com.college.task.utils.generateGeoUri
 object ImplicitIntentHelper {
 
     /**
-     * Buka Google Maps dengan koordinat tertentu Safe check: cek apakah Maps app tersedia sebelum
-     * launch
+     * Open Google Maps
      */
     fun openMaps(context: Context, latitude: String, longitude: String) {
         val geoUri = generateGeoUri(latitude, longitude)
         val mapIntent = Intent(Intent.ACTION_VIEW, Uri.parse(geoUri))
 
-        // Check apakah ada aplikasi yang bisa handle geo intent
+        // Check if there's an app that can handle this intent
         if (mapIntent.resolveActivity(context.packageManager) != null) {
             context.startActivity(mapIntent)
         } else {
-            // Fallback: buka Google Maps web
+            // Fallback: open Google Maps web
             val webIntent =
                     Intent(
                             Intent.ACTION_VIEW,
